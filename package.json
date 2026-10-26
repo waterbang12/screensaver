@@ -1,0 +1,17 @@
+{
+  "name": "margin-launcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Minimalist iPhone home-screen widget + app (SwiftUI/WidgetKit) with a browser design preview.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "preview": "node scripts/preview-server.mjs --open",
+    "sync": "node scripts/sync-shared.mjs",
+    "check": "node scripts/sync-shared.mjs --check && node scripts/check.mjs",
+    "icon": "node scripts/make-icon.mjs"
+  },
+  "engines": {
+    "node": ">=22.2"
+  }
+}

@@ -1,0 +1,80 @@
+name: iOS simulator (tests + screenshots)
+
+# Optional and manual: boots an iPhone simulator, runs the unit tests,
+# installs the app and uploads screenshots of every screen and theme.
+on:
+  workflow_dispatch:
+
+jobs:
+  simulator:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Pick a simulator
+        run: |
+          bash scripts/ci/pick-simulator.sh | tee -a "$GITHUB_ENV"
+
+      - name: Build for simulator
+        run: |
+          set -o pipefail
+          mkdir -p build/logs
+          xcodebuild build-for-testing \
+            -project Margin.xcodeproj -scheme Margin -configuration Debug \
+            -destination "id=$SIM_UDID" \
+            -derivedDataPath build/DerivedDataSim \
+            CODE_SIGNING_ALLOWED=NO \
+            2>&1 | tee build/logs/xcodebuild-simulator.log | { if command -v xcbeautify >/dev/null; then xcbeautify --renderer github-actions; else cat; fi; }
+
+      - name: Screenshots
+        run: bash scripts/ci/screenshots.sh
+
+      - name: Unit tests
+        run: |
+          set -o pipefail
+          xcodebuild test-without-building \
+            -project Margin.xcodeproj -scheme Margin -configuration Debug \
+            -destination "id=$SIM_UDID" \
+            -derivedDataPath build/DerivedDataSim \
+            -resultBundlePath build/TestResults.xcresult \
+            2>&1 | tee build/logs/xcodebuild-test.log | { if command -v xcbeautify >/dev/null; then xcbeautify --renderer github-actions; else cat; fi; }
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Simulator run"
+            echo "- Device: ${SIM_NAME:-?} (iOS ${SIM_OS:-?})"
+            echo "- Screenshots: $(ls build/screenshots 2>/dev/null | wc -l | tr -d ' ') captured — download the **screenshots** artifact"
+            echo "- The real home-screen widget cannot be placed from the command line; the widget screens show the same SwiftUI view rendered inside the app."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: build/screenshots/
+          if-no-files-found: warn
+
+      - name: Upload logs and test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulator-logs
+          path: |
+            build/logs/
+            build/TestResults.xcresult
+          if-no-files-found: ignore

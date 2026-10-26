@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "themeId": "void",
+  "appearance": "dark",
+  "typography": {
+    "fontDesign": "theme",
+    "clockSize": 72,
+    "clockWeight": "thin",
+    "labelSize": 26,
+    "labelWeight": "light",
+    "metaSize": 13,
+    "tracking": 0,
+    "labelCase": "lower"
+  },
+  "layout": {
+    "alignment": "leading",
+    "itemSpacing": 16,
+    "padding": 32
+  },
+  "colors": {
+    "background": "",
+    "foreground": "",
+    "secondary": "",
+    "accent": ""
+  },
+  "header": {
+    "showClock": true,
+    "use24Hour": true,
+    "showDate": true,
+    "dateStyle": "long",
+    "showMotto": true,
+    "motto": "less, but better.",
+    "showAccentDot": true
+  },
+  "widget": {
+    "showClock": true,
+    "showDate": true,
+    "showMotto": false,
+    "clockSize": 44,
+    "labelSize": 18,
+    "launchMode": "direct"
+  },
+  "shortcuts": [
+    { "id": "s1", "name": "Messages", "url": "sms:", "visible": true },
+    { "id": "s2", "name": "Mail", "url": "message://", "visible": true },
+    { "id": "s3", "name": "Music", "url": "music://", "visible": true },
+    { "id": "s4", "name": "Maps", "url": "maps://", "visible": true },
+    { "id": "s5", "name": "Notes", "url": "mobilenotes://", "visible": true },
+    { "id": "s6", "name": "Calendar", "url": "calshow://", "visible": true },
+    { "id": "s7", "name": "Settings", "url": "App-prefs:", "visible": true }
+  ]
+}

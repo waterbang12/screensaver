@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "note": "Community-known URL schemes. Apple does not document most of them and they can change between iOS versions. For apps without a scheme, create a Shortcut that opens the app and use shortcuts://run-shortcut?name=<Name>.",
+  "presets": [
+    { "name": "Messages", "url": "sms:" },
+    { "name": "Mail", "url": "message://" },
+    { "name": "Safari", "url": "x-web-search://" },
+    { "name": "Music", "url": "music://" },
+    { "name": "Maps", "url": "maps://" },
+    { "name": "Notes", "url": "mobilenotes://" },
+    { "name": "Calendar", "url": "calshow://" },
+    { "name": "Photos", "url": "photos-redirect://" },
+    { "name": "Settings", "url": "App-prefs:" },
+    { "name": "Shortcuts", "url": "shortcuts://" },
+    { "name": "Podcasts", "url": "podcasts://" },
+    { "name": "Books", "url": "ibooks://" },
+    { "name": "Files", "url": "shareddocuments://" },
+    { "name": "App Store", "url": "itms-apps://" },
+    { "name": "Weather", "url": "weather://" },
+    { "name": "Spotify", "url": "spotify://" },
+    { "name": "WhatsApp", "url": "whatsapp://" },
+    { "name": "Instagram", "url": "instagram://" },
+    { "name": "YouTube", "url": "youtube://" },
+    { "name": "Camera", "url": "shortcuts://run-shortcut?name=Camera" },
+    { "name": "Phone", "url": "shortcuts://run-shortcut?name=Phone" }
+  ]
+}

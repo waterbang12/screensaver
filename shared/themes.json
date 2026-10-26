@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "themes": [
+    {
+      "id": "void",
+      "name": "Void",
+      "description": "Pure black, white type. The default.",
+      "fontDesign": "system",
+      "dark":  { "background": "#000000", "foreground": "#FFFFFF", "secondary": "#8A8A8A", "accent": "#D71921", "divider": "#1C1C1C" },
+      "light": { "background": "#FFFFFF", "foreground": "#000000", "secondary": "#707070", "accent": "#D71921", "divider": "#E8E8E8" }
+    },
+    {
+      "id": "mono",
+      "name": "Monochrome",
+      "description": "Graphite greys, soft contrast.",
+      "fontDesign": "system",
+      "dark":  { "background": "#141414", "foreground": "#E6E6E6", "secondary": "#7C7C7C", "accent": "#E6E6E6", "divider": "#262626" },
+      "light": { "background": "#EDEDEB", "foreground": "#1A1A1A", "secondary": "#6A6A68", "accent": "#1A1A1A", "divider": "#D6D6D3" }
+    },
+    {
+      "id": "terminal",
+      "name": "Terminal",
+      "description": "Green phosphor on black. Monospaced.",
+      "fontDesign": "monospaced",
+      "dark":  { "background": "#030A04", "foreground": "#3DFF6E", "secondary": "#1E8F3E", "accent": "#A6FFBC", "divider": "#0E2A14" },
+      "light": { "background": "#EEF6EC", "foreground": "#0B5A21", "secondary": "#4F7F58", "accent": "#0B5A21", "divider": "#D3E6D0" }
+    },
+    {
+      "id": "washi",
+      "name": "Washi",
+      "description": "Warm paper, sumi ink, a vermilion seal. Serif.",
+      "fontDesign": "serif",
+      "dark":  { "background": "#1B1814", "foreground": "#ECE4D6", "secondary": "#8F8579", "accent": "#D0573F", "divider": "#2D2822" },
+      "light": { "background": "#F3EDE2", "foreground": "#2A2520", "secondary": "#7D7268", "accent": "#B5442F", "divider": "#E0D7C8" }
+    }
+  ]
+}

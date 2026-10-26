@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Margin Preview</title>
+  <meta name="description" content="Approximate browser preview of the Margin iPhone launcher and widget.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Stand-ins for Apple's SF Pro / New York / SF Mono / SF Rounded. Offline, system fonts are used. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..700&family=JetBrains+Mono:wght@100..700&family=Newsreader:opsz,wght@6..72,200..700&family=Nunito:wght@200..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">margin <span>design preview</span></div>
+    <p class="badge" role="note">
+      <strong>Approximate.</strong> Browser rendering with web stand-in fonts, not iOS.
+      Confirm in the simulator screenshots workflow or on your iPhone.
+    </p>
+    <div class="live" id="live" title="Auto-reload when files change (needs scripts/preview.ps1)">static</div>
+  </header>
+
+  <main class="layout">
+    <aside class="controls" id="controls" aria-label="Settings"></aside>
+
+    <section class="stage" aria-label="Preview">
+      <div class="toolbar" id="toolbar"></div>
+      <div class="phone-wrap" id="phone-wrap">
+        <div class="phone">
+          <div class="screen" id="screen"></div>
+          <div class="island" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="strip-title">Actual size · 1 px = 1 pt · 6.1″ iPhone widget sizes</div>
+      <div class="strip" id="strip"></div>
+    </section>
+  </main>
+
+  <dialog id="import-dialog">
+    <form method="dialog">
+      <h2>Import settings JSON</h2>
+      <p>Paste JSON exported from the iOS app (settings → copy settings as JSON) or from this preview.</p>
+      <textarea id="import-text" rows="14" spellcheck="false"></textarea>
+      <p class="error" id="import-error"></p>
+      <div class="buttons">
+        <button id="import-cancel" type="button">Cancel</button>
+        <button id="import-apply" type="submit">Import</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="generated/shared-data.js"></script>
+  <script src="render.js"></script>
+  <script src="app.js"></script>
+  <script src="live.js"></script>
+</body>
+</html>

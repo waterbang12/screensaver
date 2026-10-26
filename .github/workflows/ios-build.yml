@@ -1,0 +1,69 @@
+name: iOS build (unsigned IPA)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ios-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Shared data & preview checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generated files are up to date
+        run: node scripts/sync-shared.mjs --check
+      - name: Consistency checks
+        run: node scripts/check.mjs
+
+  build:
+    name: Build app + widget (iphoneos)
+    needs: checks
+    # macOS 15 image ships several Xcode versions; setup-xcode picks the newest
+    # stable one. Pin a version (e.g. '16.4') if a new Xcode breaks the build.
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Build (no code signing)
+        run: bash scripts/ci/build-device.sh
+
+      - name: Package IPA
+        run: bash scripts/ci/package-ipa.sh
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: Margin-unsigned-ipa
+          path: build/Margin-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: build/logs/
+          if-no-files-found: ignore
+          retention-days: 14
